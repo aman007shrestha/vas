@@ -1,9 +1,9 @@
 import './App.css';
-
+import { Login } from './pages/Login';
 const App = () => {
   return (
     <>
-      <h1>Initialized React Project</h1>
+      <Login />
     </>
   );
 };
