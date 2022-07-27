@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
+import { AuthContext, AuthInterface } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 interface Info {
   username: string;
@@ -14,17 +16,20 @@ const initialCredential = {
 };
 
 export const LoginForm: React.FC = () => {
+  const navigate = useNavigate();
   const [credential, setCredential] = useState<Info>(initialCredential);
-
+  const [form] = Form.useForm();
+  const { setLogggedInState } = useContext(AuthContext) as AuthInterface;
   const onFinish = (values: any) => {
     setCredential(values);
-    alert(`${credential.username}, ${credential.password}`);
-    // Api call to auth
-    setCredential(initialCredential);
+    setLogggedInState({ userName: values.username, isLoggedIn: true });
+    localStorage.setItem('username', values.username);
+    navigate({ pathname: '/' });
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    alert('Input credentials');
+    setCredential(initialCredential);
+    form.resetFields();
   };
 
   return (
@@ -36,6 +41,7 @@ export const LoginForm: React.FC = () => {
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete='off'
+      form={form}
     >
       <Form.Item
         label='Username'
