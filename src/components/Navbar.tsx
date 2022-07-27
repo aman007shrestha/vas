@@ -6,7 +6,7 @@ export const Navbar = () => {
   const navigate = useNavigate();
   const { setLogggedInState } = useContext(AuthContext) as AuthInterface;
   const handleLogout = () => {
-    localStorage.removeItem('username');
+    localStorage.removeItem('userDetail');
     setLogggedInState({ userName: '', isLoggedIn: false });
     navigate({ pathname: '/login' });
   };

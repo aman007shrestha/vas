@@ -1,21 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Route, Routes, Link, useNavigate } from 'react-router-dom';
 import { Home } from '../pages/Home';
 import { About } from '../pages/About';
 import { Login } from '../pages/Login';
 import { Navbar } from '../components/Navbar';
+import { AuthContext, AuthInterface } from '../context/AuthContext';
 
 export const RoutingPages = () => {
   const navigate = useNavigate();
+  const { loggedInState } = useContext(AuthContext) as AuthInterface;
   useEffect(() => {
-    const userName = localStorage.getItem('username');
-    if (!userName) {
+    const isLoggedIn = loggedInState.isLoggedIn;
+    if (!isLoggedIn) {
       navigate({ pathname: '/login' });
     }
   }, [navigate]);
   return (
     <>
-      {localStorage.getItem('username') && <Navbar />}
+      {loggedInState.isLoggedIn && <Navbar />}
       <Routes>
         <Route path='/login' element={<Login />} />
         <Route path='/' element={<Home />} />
