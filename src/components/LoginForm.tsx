@@ -22,8 +22,9 @@ export const LoginForm: React.FC = () => {
   const { setLogggedInState } = useContext(AuthContext) as AuthInterface;
   const onFinish = (values: any) => {
     setCredential(values);
-    setLogggedInState({ userName: values.username, isLoggedIn: true });
-    localStorage.setItem('username', values.username);
+    const localData = { userName: values.username, isLoggedIn: true };
+    setLogggedInState(localData);
+    localStorage.setItem('userDetail', JSON.stringify(localData));
     navigate({ pathname: '/' });
   };
 

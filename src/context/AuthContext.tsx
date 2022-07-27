@@ -15,11 +15,29 @@ type Props = {
   children?: ReactNode;
 };
 
+const getInitialLocalData = () => {
+  const localData = localStorage.getItem('userDetail') as string;
+  console.log(localData);
+
+  return !!localData
+    ? JSON.parse(localData)
+    : {
+        userName: '',
+        isLoggedIn: false,
+      };
+  // if (localData !== null) {
+  //   console.log(JSON.parse(localData));
+  //   return JSON.parse(localData);
+  // }
+  // return {
+  //   userName: '',
+  //   isLoggedIn: false,
+  // };
+};
+
 export const AuthProvider: React.FC<Props> = ({ children }) => {
-  const [loggedInState, setLogggedInState] = useState({
-    userName: '',
-    isLoggedIn: false,
-  });
+  const initialLocalData = getInitialLocalData();
+  const [loggedInState, setLogggedInState] = useState(initialLocalData);
   const loginContext = {
     loggedInState,
     setLogggedInState,
