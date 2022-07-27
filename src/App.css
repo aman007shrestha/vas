@@ -12,7 +12,10 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

@@ -1,9 +1,18 @@
 import './App.css';
-import { Login } from './pages/Login';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import { RoutingPages } from './routing/RoutingPages';
+
 const App = () => {
   return (
     <>
-      <Login />
+      <AuthProvider>
+        <Router>
+          <div className='container'>
+            <RoutingPages />
+          </div>
+        </Router>
+      </AuthProvider>
     </>
   );
 };
