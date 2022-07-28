@@ -1,18 +1,19 @@
 import './App.css';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
 import { RoutingPages } from './routing/RoutingPages';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 const App = () => {
   return (
     <>
-      <AuthProvider>
+      <Provider store={store}>
         <Router>
           <div className='container'>
             <RoutingPages />
           </div>
         </Router>
-      </AuthProvider>
+      </Provider>
     </>
   );
 };

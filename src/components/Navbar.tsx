@@ -1,15 +1,17 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
-import { AuthContext, AuthInterface } from '../context/AuthContext';
+import { useDispatch } from 'react-redux';
+import { logOut } from '../features/authentication/authSlice';
 
 export const Navbar = () => {
   const navigate = useNavigate();
-  const { setLogggedInState } = useContext(AuthContext) as AuthInterface;
+  const dispatch = useDispatch();
+
   const handleLogout = () => {
     localStorage.removeItem('userDetail');
-    setLogggedInState({ userName: '', isLoggedIn: false });
+    dispatch(logOut());
     navigate({ pathname: '/login' });
   };
+
   return (
     <div>
       <Link to='/'>Home</Link>

@@ -1,23 +1,23 @@
-import React, { useEffect, useContext } from 'react';
+import { useEffect } from 'react';
 import { Route, Routes, Link, useNavigate } from 'react-router-dom';
 import { Home } from '../pages/Home';
 import { About } from '../pages/About';
 import { Login } from '../pages/Login';
 import { Navbar } from '../components/Navbar';
-import { AuthContext, AuthInterface } from '../context/AuthContext';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 
 export const RoutingPages = () => {
   const navigate = useNavigate();
-  const { loggedInState } = useContext(AuthContext) as AuthInterface;
+  const { isLoggedIn } = useSelector((state: RootState) => state.auth);
   useEffect(() => {
-    const isLoggedIn = loggedInState.isLoggedIn;
     if (!isLoggedIn) {
       navigate({ pathname: '/login' });
     }
-  }, [navigate]);
+  }, [navigate, isLoggedIn]);
   return (
     <>
-      {loggedInState.isLoggedIn && <Navbar />}
+      {isLoggedIn && <Navbar />}
       <Routes>
         <Route path='/login' element={<Login />} />
         <Route path='/' element={<Home />} />

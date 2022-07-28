@@ -1,7 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
-import { AuthContext, AuthInterface } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logIn } from '../features/authentication/authSlice';
 
 interface Info {
   username: string;
@@ -16,15 +17,16 @@ const initialCredential = {
 };
 
 export const LoginForm: React.FC = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [credential, setCredential] = useState<Info>(initialCredential);
   const [form] = Form.useForm();
-  const { setLogggedInState } = useContext(AuthContext) as AuthInterface;
+
   const onFinish = (values: any) => {
     setCredential(values);
     const localData = { userName: values.username, isLoggedIn: true };
-    setLogggedInState(localData);
     localStorage.setItem('userDetail', JSON.stringify(localData));
+    dispatch(logIn(JSON.stringify(localData.userName)));
     navigate({ pathname: '/' });
   };
 
