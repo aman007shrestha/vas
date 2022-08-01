@@ -8,9 +8,14 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import CreatePatient from '../pages/CreatePatient';
 
+/**
+ *
+ * @returns navigations view based on user loggedIn state, admin navigations view if isAdmin bool true
+ *
+ */
 export const RoutingPages = () => {
   const navigate = useNavigate();
-  const { isLoggedIn } = useSelector((state: RootState) => state.auth);
+  const { isLoggedIn, isAdmin } = useSelector((state: RootState) => state.auth);
   useEffect(() => {
     if (!isLoggedIn) {
       navigate({ pathname: '/login' });

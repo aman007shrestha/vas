@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# VAS Vaccination Appointment Scheduling
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack application for VAS - Vaccination Appointment Scheduling. VAS is a mass vaccination company based in Nepal.
 
 ## Available Scripts
 
