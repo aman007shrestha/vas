@@ -103,7 +103,7 @@ const CreatePatientForm = () => {
       <Form.Item
         label='Gender'
         name='gender'
-        rules={[{ required: true, message: 'Please input your ethnicity!' }]}
+        rules={[{ required: true, message: 'Please select a field!' }]}
       >
         <Select>
           <Option value='male'>Male</Option>
