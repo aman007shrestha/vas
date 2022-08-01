@@ -6,6 +6,7 @@ import { Login } from '../pages/Login';
 import { Navbar } from '../components/Navbar';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
+import CreatePatient from '../pages/CreatePatient';
 
 export const RoutingPages = () => {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ export const RoutingPages = () => {
         <Route path='/login' element={<Login />} />
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
+        <Route path='/create-patient' element={<CreatePatient />} />
         <Route
           path='*'
           element={
