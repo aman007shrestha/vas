@@ -33,12 +33,20 @@ const initialPatientInformation = {
   document: {} as File,
 };
 
+/**
+ * @desc a slice for storing patientInformation
+ */
 const patientInformationSlice = createSlice({
   name: 'patientInformationSlice',
   initialState: {
     data: initialPatientInformation,
   },
   reducers: {
+    /**
+     *
+     * @param state patient information
+     * @param action payload contains data from form
+     */
     setPatientInformation: (
       state: { data: {} },
       action: PayloadAction<patientInformationInterface>

@@ -7,7 +7,6 @@ export const Navbar = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    localStorage.removeItem('userDetail');
     dispatch(logOut());
     navigate({ pathname: '/login' });
   };
@@ -17,7 +16,6 @@ export const Navbar = () => {
       <Link to='/'>Home</Link>
       <Link to='/about'>About</Link>
       <Link to='/create-patient'>Create Patient</Link>
-
       <button onClick={handleLogout}>Logout</button>
     </div>
   );

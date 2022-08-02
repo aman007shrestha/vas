@@ -14,14 +14,20 @@ import { useDispatch } from 'react-redux';
 import { setPatientInformation } from '../features/patientInformation/patientInformationSlice';
 import { useState } from 'react';
 
+interface Props {
+  isAdmin: boolean;
+}
+
 /**
+ * @params {isAdmin} bool representing the action being called by admin or normal user
  * @desc form consisting of fields for registration, formats data in structure, sets redux state, send axios request to backend
  * @returns a generic form for patient registration for both admin and client
  */
-const CreatePatientForm = () => {
+const CreatePatientForm = ({ isAdmin }: Props) => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  console.log(isAdmin);
 
   const handleSubmit = (values: any) => {
     const structuredData = {
@@ -43,6 +49,7 @@ const CreatePatientForm = () => {
       },
       document: values.document.file,
     };
+    // get patient Id for successful registration
     dispatch(setPatientInformation(structuredData));
     form.resetFields();
     setFileList([]);
