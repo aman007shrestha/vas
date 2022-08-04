@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { PayloadAction } from '@reduxjs/toolkit';
 
 interface UserDetails {
-  username: string;
+  email: string;
   isLoggedIn: boolean;
   isAdmin: boolean;
 }
@@ -16,7 +16,7 @@ const getInitialLocalData = () => {
   return !!localData
     ? JSON.parse(localData)
     : {
-        username: '',
+        email: '',
         isLoggedIn: false,
         isAdmin: false,
       };
@@ -29,6 +29,18 @@ const authSlice = createSlice({
   name: 'authSlice',
   initialState: getInitialLocalData(),
   reducers: {
+    register: (
+      state: UserDetails,
+      action: PayloadAction<{
+        email: string;
+        password: string;
+      }>
+    ) => {
+      // register call
+      const { email, password } = action.payload;
+      state.email = email;
+      console.log('User Register Call', password);
+    },
     /**
      *
      * @param state state of slice : username, isLoggedIn, isAdmin
@@ -38,24 +50,24 @@ const authSlice = createSlice({
     logIn: (
       state: UserDetails,
       action: PayloadAction<{
-        username: string;
+        email: string;
         password: string;
       }>
     ) => {
       state.isAdmin = false;
       // API Call with username and password
-      const { username, password } = action.payload;
+      const { email, password } = action.payload;
 
       // Dummy Admin assignment
-      if (username === 'admin' && password === 'admin') {
+      if (email === 'admin' && password === 'admin') {
         state.isAdmin = true;
       }
 
-      state.username = action.payload.username;
+      state.email = email;
       state.isLoggedIn = true;
 
       const localStorageData: UserDetails = {
-        username: state.username,
+        email: state.email,
         isLoggedIn: state.isLoggedIn,
         isAdmin: state.isAdmin,
       };
@@ -68,12 +80,12 @@ const authSlice = createSlice({
      */
     logOut: (state: UserDetails) => {
       localStorage.removeItem('userDetail');
-      state.username = '';
+      state.email = '';
       state.isLoggedIn = false;
       state.isAdmin = false;
     },
   },
 });
 
-export const { logIn, logOut } = authSlice.actions;
+export const { logIn, logOut, register } = authSlice.actions;
 export default authSlice.reducer;

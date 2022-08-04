@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
 import { Route, Routes, Link, useNavigate } from 'react-router-dom';
-import { Home } from '../pages/Home';
+import { Home } from '../pages/Home/Home';
 import { About } from '../pages/About';
-import { Login } from '../pages/Login';
-import { Navbar } from '../components/Navbar';
+import NavBar from '../components/NavBar';
 import { useSelector } from 'react-redux';
-import { RootState } from '../store';
+import { RootState } from '../store/store';
 import CreatePatient from '../pages/CreatePatient';
 
 /**
@@ -15,19 +14,18 @@ import CreatePatient from '../pages/CreatePatient';
  */
 export const RoutingPages = () => {
   const navigate = useNavigate();
-  const { isLoggedIn, isAdmin } = useSelector((state: RootState) => state.auth);
+  const { isLoggedIn } = useSelector((state: RootState) => state.auth);
+  // A non logggedIn user is always redirected to home page
   useEffect(() => {
     if (!isLoggedIn) {
-      navigate({ pathname: '/login' });
+      navigate({ pathname: '/' });
     }
   }, [navigate, isLoggedIn]);
   return (
     <>
-      {isLoggedIn && <Navbar />}
+      {isLoggedIn && <NavBar />}
       <Routes>
-        <Route path='/login' element={<Login />} />
         <Route path='/' element={<Home />} />
-        <Route path='/about' element={<About />} />
         <Route path='/create-patient' element={<CreatePatient />} />
         <Route
           path='*'

@@ -1,7 +1,7 @@
 import React from 'react';
 import CreatePatientForm from '../components/CreatePatientForm';
 import { useSelector } from 'react-redux';
-import { RootState } from '../store';
+import { RootState } from '../store/store';
 
 /**
  * @desc isAdmin bool checks the action is performed by user or admin
